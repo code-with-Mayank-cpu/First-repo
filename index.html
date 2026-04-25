@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>College Selection</title>
+   <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🎓 College Selection</h1>
+            <p>Find your perfect college match</p>
+        </header>
+        
+        <div class="search-box">
+            <input type="text" id="searchInput" placeholder="Search colleges...">
+            <button onclick="searchColleges()">Search</button>
+        </div>
+        
+        <div class="filters">
+            <select id="stateFilter">
+                <option value="">All States</option>
+                <option value="CA">California</option>
+                <option value="NY">New York</option>
+                <option value="TX">Texas</option>
+            </select>
+            <select id="ratingFilter">
+                <option value="">All Ratings</option>
+                <option value="4.5">4.5+ Stars</option>
+                <option value="4">4+ Stars</option>
+                <option value="3.5">3.5+ Stars</option>
+            </select>
+        </div>
+        
+        <div class="colleges-grid" id="collegesGrid">
+            <!-- College cards will be generated here -->
+        </div>
+    </div>
+    
+    <script>
+        const colleges = [
+            { id: 1, name: "Stanford University", state: "CA", rating: 4.9, location: "Palo Alto", emoji: "📚" },
+            { id: 2, name: "MIT", state: "MA", rating: 4.8, location: "Cambridge", emoji: "🔬" },
+            { id: 3, name: "Harvard University", state: "MA", rating: 4.9, location: "Cambridge", emoji: "📖" },
+            { id: 4, name: "UC Berkeley", state: "CA", rating: 4.7, location: "Berkeley", emoji: "🏫" },
+            { id: 5, name: "Cornell University", state: "NY", rating: 4.6, location: "Ithaca", emoji: "🎓" },
+        ];
+        
+        function renderColleges(data) {
+            const grid = document.getElementById('collegesGrid');
+            grid.innerHTML = data.map(college => `
+                <div class="college-card">
+                    <div class="college-image">${college.emoji}</div>
+                    <div class="college-info">
+                        <h3>${college.name}</h3>
+                        <p><strong>Location:</strong> ${college.location}, ${college.state}</p>
+                        <div class="rating">⭐ ${college.rating}</div>
+                        <div class="btn-group">
+                            <button class="btn btn-primary">Learn More</button>
+                            <button class="btn btn-secondary">Save</button>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+        
+        function searchColleges() {
+            const search = document.getElementById('searchInput').value.toLowerCase();
+            const filtered = colleges.filter(c => c.name.toLowerCase().includes(search));
+            renderColleges(filtered);
+        }
+        
+        renderColleges(colleges);
+    </script>
+</body>
+</html>
